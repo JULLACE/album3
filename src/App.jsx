@@ -1,13 +1,8 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-const Search = ({value, handleChange, submitHandler}) => {
-  return (
-    <form onSubmit={submitHandler}>
-      <input value={value} onChange={handleChange} />
-    </form>
-  );
-}
+import Search from './components/Search'
+import API from './services/api'
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -21,17 +16,10 @@ const App = () => {
     event.preventDefault();
     console.log('Searching for... ', searchValue);
 
-    const headers = {
-      "User-Agent":
-        "MyFooBarPersonalApp/0.1"
-    }
-
-    axios
-      .get('https://api.discogs.com/releases/249504')
-      .then(res => {
-        console.log('promise fulfilled')
-        console.log(res)
-      })
+    API.querySearch(searchValue)
+      .then(response => {
+        console.log(response);
+      });
   }
 
   return (
