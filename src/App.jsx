@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 import Search from './components/Search'
+import Results from './components/Results'
 import API from './services/api'
 
 const App = () => {
@@ -18,7 +19,7 @@ const App = () => {
 
     API.querySearch(searchValue)
       .then(response => {
-        console.log(response);
+        setData(response.data.results)
       });
   }
 
@@ -30,6 +31,14 @@ const App = () => {
         handleChange={handleChange} 
         submitHandler={searchHandler} 
       />
+        {data.length === 0 
+        ? null 
+        : <div className="result-list">
+            {data.map(song =>
+              <Results key={song.id} songInfo={song} />
+            )}
+          </div>
+        }
     </div>
   );
 }
