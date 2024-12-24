@@ -39,7 +39,7 @@ body {
   border: 5px solid rgb(22, 22, 22);
   border-radius: 5px;
 
-  max-width: 350px;
+  max-width: 500px;
 }
 
 .result:hover {
@@ -53,6 +53,6 @@ body {
 }
 
 .result img {
-  max-width: 20%;
-  max-height: 20%;
+  max-width: 30%;
+  max-height: 30%;
 }

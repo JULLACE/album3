@@ -20,25 +20,26 @@ const App = () => {
     API.querySearch(searchValue)
       .then(response => {
         setData(response.data.results)
+        console.log(response.data.results)
       });
   }
 
   return (
     <div className="search-bar">
-      <h1> Search for an artist here </h1>
+      <h1> Search for an Album </h1>
       <Search 
         value={searchValue} 
         handleChange={handleChange} 
         submitHandler={searchHandler} 
       />
-        {data.length === 0 
-        ? null 
-        : <div className="result-list">
-            {data.map(song =>
-              <Results key={song.id} songInfo={song} />
-            )}
-          </div>
-        }
+      {data.length === 0 
+      ? '' 
+      : <div className="result-list">
+          {data.map(song =>
+            <Results key={song.id} songInfo={song} />
+          )}
+        </div>
+      }
     </div>
   );
 }

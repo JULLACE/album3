@@ -1,8 +1,11 @@
 const Results = ({ songInfo }) => {
+    if (songInfo.type === 'artist')
+        return
+
     return (
-        <div class="result">
+        <div className="result" onClick={() => console.log(`Selected ${songInfo.id}, functionality goes here`)}>
             <p>{songInfo.title}</p>
-            <img src={songInfo.thumb} />
+            <img src={songInfo.cover_image} />
         </div>
     );
 }
