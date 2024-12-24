@@ -1,6 +1,6 @@
 const Results = ({ songInfo }) => {
     if (songInfo.type === 'artist')
-        return
+        return;
 
     return (
         <div className="result" onClick={() => console.log(`Selected ${songInfo.id}, functionality goes here`)}>

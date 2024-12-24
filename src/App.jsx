@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import axios from 'axios'
+import { Canvas } from '@react-three/fiber'
 
 import Search from './components/Search'
 import Results from './components/Results'
+import Viewport from './components/Viewport'
+
 import API from './services/api'
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   const handleChange = (event) => {
     setSearchValue(event.target.value);
@@ -19,10 +22,16 @@ const App = () => {
 
     API.querySearch(searchValue)
       .then(response => {
-        setData(response.data.results)
-        console.log(response.data.results)
+        setData(response.data.results);
+        console.log(response.data.results);
       });
   }
+
+  // Temporarily set as the 2nd result's album image
+  let imageTexture = data.length > 1 
+    ? `${data[1].cover_image}`
+    : '/logo.png';
+
 
   return (
     <div className="search-bar">
@@ -40,6 +49,11 @@ const App = () => {
           )}
         </div>
       }
+      <div className="canvas-container">
+        <Canvas>
+          <Viewport imageUrl={imageTexture}/>
+        </Canvas>
+      </div>
     </div>
   );
 }
