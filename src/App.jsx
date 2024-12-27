@@ -11,6 +11,7 @@ import API from './services/api'
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
   const [data, setData] = useState([]);
+  const [texture, setTexture] = useState('/logo.png')
 
   const handleChange = (event) => {
     setSearchValue(event.target.value);
@@ -27,11 +28,15 @@ const App = () => {
       });
   }
 
-  // Temporarily set as the 2nd result's album image
-  let imageTexture = data.length > 1 
-    ? `${data[1].cover_image}`
-    : '/logo.png';
 
+  const imageTexture = (choice = 0) => {
+    console.log('Received choice...', choice)
+
+    if (data.length > 0 && choice) {
+      let matchedResult = data.find(result => result.id === choice)
+      setTexture(`${import.meta.env.VITE_LINK_HANDLER}${matchedResult.cover_image}`)
+    }
+  }
 
   return (
     <div className="search-bar">
@@ -41,18 +46,20 @@ const App = () => {
         handleChange={handleChange} 
         submitHandler={searchHandler} 
       />
-      {data.length === 0 
-      ? '' 
-      : <div className="result-list">
-          {data.map(song =>
-            <Results key={song.id} songInfo={song} />
-          )}
+      <div className='separator'>
+        { data.length === 0 
+        ? '' 
+        : <div className="result-list">
+            {data.map(song =>
+              <Results key={song.id} songInfo={song} chooseCover={imageTexture}/>
+            )}
+          </div>
+        }
+        <div className="canvas-container">
+          <Canvas>
+            <Viewport imageUrl={texture}/>
+          </Canvas>
         </div>
-      }
-      <div className="canvas-container">
-        <Canvas>
-          <Viewport imageUrl={imageTexture}/>
-        </Canvas>
       </div>
     </div>
   );
