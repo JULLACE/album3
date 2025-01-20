@@ -11,7 +11,7 @@ import API from './services/api'
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
   const [data, setData] = useState([]);
-  const [texture, setTexture] = useState('/logo.png')
+  const [texture, setTexture] = useState('/test.jpg')
 
   const handleChange = (event) => {
     setSearchValue(event.target.value);
@@ -47,19 +47,20 @@ const App = () => {
         submitHandler={searchHandler} 
       />
       <div className='separator'>
+        <div className="canvas-container" id="cc-box">
+          <Canvas>
+            <Viewport imageUrl={texture}/>
+          </Canvas>
+        </div>
+        
         { data.length === 0 
-        ? '' 
+        ? ''
         : <div className="result-list">
             {data.map(song =>
               <Results key={song.id} songInfo={song} chooseCover={imageTexture}/>
             )}
           </div>
         }
-        <div className="canvas-container">
-          <Canvas>
-            <Viewport imageUrl={texture}/>
-          </Canvas>
-        </div>
       </div>
     </div>
   );

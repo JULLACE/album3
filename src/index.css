@@ -28,7 +28,8 @@ body {
 .separator {
   display: flex;
   gap: 25px;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .result-list {
