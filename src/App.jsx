@@ -11,7 +11,7 @@ import API from './services/api'
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
   const [data, setData] = useState([]);
-  const [texture, setTexture] = useState('/test.jpg')
+  const [texture, setTexture] = useState(['/test.jpg', '/logo.png'])
 
   const handleChange = (event) => {
     setSearchValue(event.target.value);
@@ -33,8 +33,15 @@ const App = () => {
     console.log('Received choice...', choice)
 
     if (data.length > 0 && choice) {
-      let matchedResult = data.find(result => result.id === choice)
-      setTexture(`${import.meta.env.VITE_LINK_HANDLER}${matchedResult.cover_image}`)
+      API.grabAlbum(choice).then(result => {
+        console.log('Results coming up!', result.data.images)
+        
+        let imageArray = [ result.data.images[0].uri, result.data.images[0].uri ]
+        if (result.data.images.length > 1) imageArray = [ result.data.images[0].uri, result.data.images[1].uri ]
+
+        imageArray = imageArray.map(URI => (`${import.meta.env.VITE_LINK_HANDLER}${URI}`))
+        setTexture(imageArray)
+      })
     }
   }
 

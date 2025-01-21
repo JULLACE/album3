@@ -17,4 +17,8 @@ const querySearch = (search) => {
     return axios.get(`${baseUrl}/database/search?q=${query}&type=all&${pagination}`, baseHeaders);
 }
 
-export default { querySearch }
+const grabAlbum = (resourceUrl) => {
+    return axios.get(`${resourceUrl}`, baseHeaders)
+}
+
+export default { querySearch, grabAlbum }
