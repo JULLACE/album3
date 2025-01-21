@@ -7,7 +7,7 @@ Rediscover the lost art of album covers in full 3D:
 I feel like album covers and music art in general has been kind of unappreciated in their full form. There's a whole backside to the art that people have kind of forgotten about, and I think it's a cool part of the experience. On top of that, I just thought it'd be fun :)
 
 # dev
-Just your standard React + Vite project. Clone the project and run:
+Just your standard React + Vite project. Clone the project and run
 
 ```
 npm install
