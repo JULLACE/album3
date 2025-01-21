@@ -1,23 +1,32 @@
 import { useFrame, useLoader } from '@react-three/fiber'
-import { useRef, useEffect } from 'react'
-import { TextureLoader } from 'three';
+import { useRef, useEffect, useState } from 'react'
+import { easing } from 'maath'
+import * as THREE from 'three';
 
-const Viewport = ({imageUrl}) => {
+const Viewport = ({ imageUrl }) => {
     const meshRef = useRef();
+    const colorMap = useLoader(THREE.TextureLoader, imageUrl)
 
-    const colorMap = useLoader(TextureLoader, imageUrl)
+    const [ dummy ] = useState(() => new THREE.Object3D())
 
     useEffect(() => {
         meshRef.current.geometry.center();
+        meshRef.current.rotation.y += 1.2
     }, [])
 
     const animHandler = (state, delta) => {
-        meshRef.current.rotation.y += delta
-
         const section = document.getElementById('cc-box')
-        section.addEventListener("mousemove", event => {
-            // Looking functionality goes here            
-        })
+
+        // using CSS selectors hacks
+        if (section.matches(":hover") && section.matches(":active")) {
+            dummy.lookAt(state.pointer.x, state.pointer.y, 1)
+            easing.dampQ(meshRef.current.quaternion, dummy.quaternion, 0.15, delta)
+        }
+        else {
+            meshRef.current.rotation.y += delta
+            meshRef.current.rotation.x = 0
+            meshRef.current.rotation.z = 0
+        }
     }
 
     useFrame((state, delta) => animHandler(state, delta));
@@ -25,12 +34,13 @@ const Viewport = ({imageUrl}) => {
     return (
         <>
             <ambientLight intensity={0.1} />
-            {/* <directionalLight color="white" position={[0, 0, 5]} /> */}
-            <mesh
-                ref={meshRef} >
+            <directionalLight color="white" position={[0, 5, 5]} intensity={2.5}/>
+            <mesh ref={meshRef} >
                 {/* <cylinderGeometry args={[2.5, 2.5, 0.1, 64]} /> */}
-                <boxGeometry args={[.04, 4, 4]} />
-                <meshBasicMaterial map={colorMap} />
+                <boxGeometry args={[4, 4, .04]} />
+                {/* <meshBasicMaterial map={colorMap} /> */}
+                <meshStandardMaterial map={colorMap} />
+            
 
                 {/* <meshBasicMaterial attach="material-0" map={colorMap} /> */}
                 {/* <meshBasicMaterial attach="material-1" map={colorMap} /> */}

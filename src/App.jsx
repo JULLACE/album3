@@ -54,12 +54,12 @@ const App = () => {
         </div>
         
         { data.length === 0 
-        ? ''
-        : <div className="result-list">
-            {data.map(song =>
-              <Results key={song.id} songInfo={song} chooseCover={imageTexture}/>
-            )}
-          </div>
+          ? ''
+          : <div className="result-list">
+              {data.map(song =>
+                <Results key={song.id} songInfo={song} chooseCover={imageTexture}/>
+              )}
+            </div>
         }
       </div>
     </div>
