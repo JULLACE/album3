@@ -11,7 +11,7 @@ import API from './services/api'
 const App = () => {
   const [searchValue, setSearchValue] = useState('');
   const [data, setData] = useState([]);
-  const [texture, setTexture] = useState(['/test.jpg', '/logo.png'])
+  const [texture, setTexture] = useState(['/logo.png', '/logo.png'])
 
   const handleChange = (event) => {
     setSearchValue(event.target.value);
