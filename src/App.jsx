@@ -46,20 +46,22 @@ const App = () => {
   }
 
   return (
-    <div className="search-bar">
-      <h1> Search for an Album </h1>
-      <Search 
-        value={searchValue} 
-        handleChange={handleChange} 
-        submitHandler={searchHandler} 
-      />
-      <div className='separator'>
+    <div className="layout">
+      <div className="search-area">
+        <h2> Search for an Album </h2>
+        <Search 
+          value={searchValue} 
+          handleChange={handleChange} 
+          submitHandler={searchHandler} 
+        />
+      </div>
+
+      <div className="view-area">
         <div className="canvas-container" id="cc-box">
           <Canvas>
             <Viewport imageUrl={texture}/>
           </Canvas>
-        </div>
-        
+        </div>  
         { data.length === 0 
           ? ''
           : <div className="result-list">

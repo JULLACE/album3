@@ -13,19 +13,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+.layout {
   display: flex;
-  justify-content: space-evenly;
+  flex: 1;
+
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
 }
 
-.search-bar {
+.search-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
 }
 
-.separator {
+.view-area {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
@@ -65,9 +68,10 @@ body {
 }
 
 .canvas-container {
-  width: 500px;
+  max-width: 500px;
   height: 500px;
   border: 5px solid rgb(214, 214, 214);
   background-color: #1f1f1f;
   border-radius: 5px;
+  flex: 1;
 }
