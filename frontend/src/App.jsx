@@ -28,7 +28,6 @@ const App = () => {
       });
   }
 
-
   const imageTexture = (choice = 0) => {
     console.log('Received choice...', choice)
 
@@ -66,7 +65,11 @@ const App = () => {
           ? ''
           : <div className="result-list">
               {data.map(song =>
-                <Results key={song.id} songInfo={song} chooseCover={imageTexture}/>
+                <Results 
+                  key={song.id} 
+                  songInfo={song} 
+                  chooseCover={imageTexture}
+                />
               )}
             </div>
         }

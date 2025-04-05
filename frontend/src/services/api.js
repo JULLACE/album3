@@ -14,7 +14,7 @@ const pagination = '?page=0&per_page=10'
 
 const querySearch = (search) => {
     let query = encodeURIComponent(search);
-    return axios.get(`${baseUrl}/database/search?q=${query}&type=all&${pagination}`, baseHeaders);
+    return axios.get(`${baseUrl}/database/search?q=${query}&type=release&${pagination}`, baseHeaders);
 }
 
 const grabAlbum = (resourceUrl) => {
