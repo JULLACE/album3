@@ -33,7 +33,7 @@ const App = () => {
 
     if (data.length > 0 && choice) {
       console.log('Grabbing images...')
-      let imageArray = [`http://localhost:3001/cover/${choice}/0`, `http://localhost:3001/cover/${choice}/1`]
+      let imageArray = [`${import.meta.env.VITE_LINK_HANDLER}/cover/${choice}/0`, `${import.meta.env.VITE_LINK_HANDLER}/cover/${choice}/1`]
       setTexture(imageArray)
     }
   }
