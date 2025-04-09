@@ -17,13 +17,32 @@ const baseHeaders = {
     }
 }
 
+const pagination = '?page=0&per_page=10'
+
 app.get('/', (request, response) => {
-    response.send('<h1> im breathing...</h1>')
+    response.status(404).end()
 })
 
-app.get('/what', (request, response) => {
-    axios.get(`${baseUrl}/database/search?q=${'hikaru utada'}&type=release&`, baseHeaders)
+app.get('/search/:query', (request, response) => {
+    let query = request.params.query
+    axios.get(`${baseUrl}/database/search?q=${query}&type=release&${pagination}`, baseHeaders)
     .then(data => response.json(data.data))
+})
+
+app.get('/cover/:id/:option', async (request, response) => {
+    let id = request.params.id
+    let option = request.params.option
+    
+    let imageRes = await axios.get(`${baseUrl}/releases/${id}`, baseHeaders)
+    let imageArray = imageRes.data.images
+
+    let imageData = await axios.get(imageArray[0].uri, {...baseHeaders, responseType: 'arraybuffer'})
+
+    if (imageArray.length > 1 && option == 1)
+        imageData = await axios.get(imageArray[1].uri, {...baseHeaders, responseType: 'arraybuffer'})
+    
+    response.setHeader('Content-Type', 'image/jpeg')
+    response.send(imageData.data)
 })
 
 const PORT = process.env.PORT || 3001

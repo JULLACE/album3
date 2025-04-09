@@ -32,15 +32,9 @@ const App = () => {
     console.log('Received choice...', choice)
 
     if (data.length > 0 && choice) {
-      API.grabAlbum(choice).then(result => {
-        console.log('Results coming up!', result.data.images)
-        
-        let imageArray = [ result.data.images[0].uri, result.data.images[0].uri ]
-        if (result.data.images.length > 1) imageArray = [ result.data.images[0].uri, result.data.images[1].uri ]
-
-        imageArray = imageArray.map(URI => (`${import.meta.env.VITE_LINK_HANDLER}${URI}`))
-        setTexture(imageArray)
-      })
+      console.log('Grabbing images...')
+      let imageArray = [`http://localhost:3001/cover/${choice}/0`, `http://localhost:3001/cover/${choice}/1`]
+      setTexture(imageArray)
     }
   }
 

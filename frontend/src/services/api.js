@@ -1,24 +1,14 @@
 import axios from 'axios'
 
-const baseUrl = 'https://api.discogs.com'
-const baseHeaders = {
-    headers: {
-        "User-Agent":
-            "MyFooBarPersonalApp/0.1",
-        "Authorization":
-            `Discogs key=${import.meta.env.VITE_CONSUMER_KEY}, secret=${import.meta.env.VITE_CONSUMER_SECRET}`
-    }
-}
-
-const pagination = '?page=0&per_page=10'
+const baseUrl = 'http://localhost:3001'
 
 const querySearch = (search) => {
     let query = encodeURIComponent(search);
-    return axios.get(`${baseUrl}/database/search?q=${query}&type=release&${pagination}`, baseHeaders);
+    return axios.get(`${baseUrl}/search/${query}`)
 }
 
-const grabAlbum = (resourceUrl) => {
-    return axios.get(`${resourceUrl}`, baseHeaders)
+const grabAlbum = (songID) => {
+    return axios.get(`${baseUrl}/cover/${songID}`)
 }
 
 export default { querySearch, grabAlbum }
