@@ -19,14 +19,16 @@ const baseHeaders = {
 
 const pagination = '?page=0&per_page=10'
 
+app.use(express.static('dist'))
+
 app.get('/', (request, response) => {
     response.status(404).end()
 })
 
-app.get('/search/:query', (request, response) => {
+app.get('/search/:query', async (request, response) => {
     let query = request.params.query
-    axios.get(`${baseUrl}/database/search?q=${query}&type=release&${pagination}`, baseHeaders)
-    .then(data => response.json(data.data))
+    let data = await axios.get(`${baseUrl}/database/search?q=${query}&type=release&${pagination}`, baseHeaders)
+    response.json(data.data)
 })
 
 app.get('/cover/:id/:option', async (request, response) => {
