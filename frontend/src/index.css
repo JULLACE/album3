@@ -43,11 +43,15 @@
 
 .result-list {
   display: grid;
-  grid-template-columns: repeat(3, 150px);
-  grid-template-rows: repeat(3, 170px);
+  grid-template-columns: repeat(3,150px);
+  grid-template-rows: repeat(3,170px);
   border: 5px solid rgb(214, 214, 214);
   border-radius: 5px;
   padding: 5px;
+}
+
+@media screen and (max-width: 400px) {
+  .result-list { grid-template-columns: repeat(3, 28vw); }
 }
 
 .result {
