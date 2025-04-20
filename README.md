@@ -1,7 +1,7 @@
-# cd-ify
-Rediscover the lost art of album covers in full 3D:
+# album3
+Rediscover the lost art of album covers in full 3D
 
-[cdify.webm](https://github.com/user-attachments/assets/6f1206e3-61fd-477a-ba9d-bc12460bf24e)
+[cdify.webm](https://github.com/user-attachments/assets/70ae1587-a96e-4373-862f-2cc64811aa9c)
 
 # why
 I feel like album covers and music art in general has been kind of unappreciated in their full form. There's a whole backside to the art that people have kind of forgotten about, and I think it's a cool part of the experience. On top of that, I just thought it'd be fun :)
