@@ -25,8 +25,8 @@ const Viewport = ({ imageUrl }) => {
         }
         else {
             meshRef.current.rotation.y += delta
-            meshRef.current.rotation.x = 0
-            meshRef.current.rotation.z = 0
+            if (meshRef.current.rotation.x !== 0) meshRef.current.rotation.x = 0
+            if (meshRef.current.rotation.z !== 0) meshRef.current.rotation.z = 0
         }
     }
 
@@ -38,7 +38,7 @@ const Viewport = ({ imageUrl }) => {
             <directionalLight color="white" position={[0, 5, 5]} intensity={2.5}/>
             <mesh ref={meshRef} >
                 {/* <cylinderGeometry args={[2.5, 2.5, 0.1, 64]} /> */}
-                <boxGeometry args={[4, 4, .04]} />
+                <boxGeometry args={[4, 4, .05]} />
                 {/* <meshBasicMaterial map={colorMap} /> */}
                 {/* <meshStandardMaterial map={colorMapBack} /> */}
             
