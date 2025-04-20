@@ -17,7 +17,7 @@ const baseHeaders = {
     }
 }
 
-const pagination = '?page=0&per_page=10'
+const pagination = '?page=0&per_page=9'
 
 app.use(express.static('dist'))
 

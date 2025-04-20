@@ -1,8 +1,8 @@
-const Results = ({ songInfo, chooseCover }) => {
+const Results = ({ songInfo, chooseCover, selected }) => {
     return (
-        <div className="result" onClick={() => chooseCover(songInfo.id)}>
-            <p>{songInfo.title}</p>
+        <div className={ selected ? "result selected" : "result" } onClick={() => chooseCover(songInfo.id)}>
             <img src={songInfo.cover_image} />
+            <p>{songInfo.title}</p>
         </div>
     );
 }
