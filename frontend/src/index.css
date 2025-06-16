@@ -44,14 +44,20 @@
 .result-list {
   display: grid;
   grid-template-columns: repeat(3,150px);
-  grid-template-rows: repeat(3,170px);
+  grid-template-rows: repeat(3,150px);
   border: 5px solid rgb(214, 214, 214);
   border-radius: 5px;
   padding: 5px;
 }
 
-@media screen and (max-width: 400px) {
-  .result-list { grid-template-columns: repeat(3, 28vw); }
+.empty-list {
+  display: flex;
+  width: 410px;
+  border: 5px solid rgb(214, 214, 214);
+  border-radius: 5px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 .result {
@@ -97,4 +103,9 @@
   background-color: #1f1f1f;
   border-radius: 5px;
   flex: 1;
+}
+
+@media screen and (max-width: 480px) {
+  .canvas-container { width: 50%; height: 300px; }
+  .result-list { grid-template-columns: repeat(3, 28vw); }
 }
