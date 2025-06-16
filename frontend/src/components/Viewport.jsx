@@ -9,6 +9,7 @@ const Viewport = ({ imageUrl }) => {
     const colorMapBack = useLoader(THREE.TextureLoader, imageUrl[1])
 
     const [ dummy ] = useState(() => new THREE.Object3D())
+    const [prevY, setPrevY] = useState(0.0)
 
     useEffect(() => {
         meshRef.current.geometry.center();
@@ -17,16 +18,27 @@ const Viewport = ({ imageUrl }) => {
 
     const animHandler = (state, delta) => {
         const section = document.getElementById('cc-box')
+        console.log(meshRef.current.rotation.y, prevY)
 
         // using CSS selectors hacks
         if (section.matches(":hover") && section.matches(":active")) {
-            dummy.lookAt(state.pointer.x, state.pointer.y, 1)
+            if (meshRef.current.quaternion.y <= 0.70) {
+                dummy.lookAt(state.pointer.x, state.pointer.y, 1)
+                setPrevY(0)
+            }
+            else {
+                dummy.lookAt(-state.pointer.x, -state.pointer.y, -1)
+                setPrevY(2.4)
+            }
             easing.dampQ(meshRef.current.quaternion, dummy.quaternion, 0.15, delta)
         }
         else {
-            meshRef.current.rotation.y += delta
+            meshRef.current.rotation.y += prevY + delta
+            meshRef.current.rotation.y %= 3.14*2
             if (meshRef.current.rotation.x !== 0) meshRef.current.rotation.x = 0
             if (meshRef.current.rotation.z !== 0) meshRef.current.rotation.z = 0
+
+            setPrevY(0)
         }
     }
 
