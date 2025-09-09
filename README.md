@@ -17,4 +17,4 @@ npm run dev
 in your terminal and you're a developer now!
 There are some environment variables that are necessary and `env.example` help give a general outline.
 
-This was possible thanks to the [discogs API](https://www.discogs.com/developers). 
+This was possible thanks to the [discogs API](https://www.discogs.com/developers) and [Three.js](https://threejs.org/) / [React Three Fiber](https://r3f.docs.pmnd.rs/getting-started/introduction)
