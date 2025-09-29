@@ -1,13 +1,13 @@
-const Search = ({value, handleChange, submitHandler}) => {
+const Search = ({ value, handleChange, submitHandler }) => {
   return (
     <form onSubmit={submitHandler}>
-      <input 
-        value={value} 
+      <input
+        value={value}
         onChange={handleChange}
         placeholder="Search for an Album..."
-        enterKeyHint="search"/>
+        enterKeyHint="search" />
     </form>
   );
-}
+};
 
-export default Search
+export default Search;
