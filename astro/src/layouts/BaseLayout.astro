@@ -1,0 +1,21 @@
+---
+import "../styles/global.css";
+import Navigation from "../components/Navigation.astro";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title} - album3</title>
+    </head>
+
+    <body class="w-full bg-stone-800 text-slate-100">
+        <Navigation />
+        <slot />
+        <footer>im at the bottom</footer>
+    </body>
+</html>
