@@ -1,9 +1,22 @@
 ---
-
+const { pathname } = Astro.url;
 ---
 
-<div class="p-5 bg-stone-900 flex gap-10 justify-center mb-5">
-    <a href="/">Home</a>
-    <a href="/view/">View</a>
-    <a href="/leaderboard/">Leaderboard</a>
+<div
+    class="mx-auto flex items-center max-w-7xl container
+    justify-between self-start rounded-full p-4"
+>
+    <a href="/">
+        <span class="font-normal font-mono flex items-center gap-5">
+            <img src="/favicon.png" class="max-w-10" />
+            album3
+        </span>
+    </a>
+
+    <ul class="flex gap-10 justify-center items-center">
+        <li><a href="/">Home</a></li>
+        <li><a href="/view/">Search</a></li>
+        <li><a href="/leaderboard/">Leaderboard</a></li>
+    </ul>
+    <div>Login <span class="text-xs">(wip)</span></div>
 </div>
