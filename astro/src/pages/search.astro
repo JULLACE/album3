@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import App from "../components/App";
 ---
 
 <BaseLayout title={"View"}>
-    <h1>view would be here probably</h1>
+    <App client:load />
 </BaseLayout>
