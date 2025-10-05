@@ -11,12 +11,24 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  font-family: monospace;
+  font-size: 1.5em;
 }
 
 .search-area {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.search-area input {
+  margin-top: 15%;
+  background-color: rgb(20, 20, 20);
+  border: grey thin solid;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
 }
 
 .view-area {

@@ -1,5 +1,6 @@
 ---
 const { pathname } = Astro.url;
+const active = "underline underline-offset-8 text-purple-100";
 ---
 
 <div
@@ -7,16 +8,28 @@ const { pathname } = Astro.url;
     justify-between p-4"
 >
     <a href="/">
-        <span class="font-normal font-mono flex items-center gap-5">
+        <span class="font-normal font-mono flex items-center gap-2">
             <img src="/favicon.png" class="max-w-10" />
             album3
         </span>
     </a>
 
     <ul class="flex gap-10 justify-center items-center">
-        <li><a href="/">Home</a></li>
-        <li><a href="/search/">Search</a></li>
-        <li><a href="/leaderboard/">Leaderboard</a></li>
+        <li>
+            <a href="/" class={pathname === "/" ? active : ""}>Home</a>
+        </li>
+        <li>
+            <a href="/search/" class={pathname === "/search/" ? active : ""}
+                >Search</a
+            >
+        </li>
+        <li>
+            <a
+                href="/leaderboard/"
+                class={pathname === "/leaderboard/" ? active : ""}
+                >Leaderboard</a
+            >
+        </li>
     </ul>
     <div>Login <span class="text-xs">(wip)</span></div>
 </div>
