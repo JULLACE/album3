@@ -2,9 +2,11 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useEffect, useState } from 'react';
 import { easing } from 'maath';
 import * as THREE from 'three';
+import { OrbitControls } from '@react-three/drei';
 
 const Viewport = ({ imageUrl }) => {
     const meshRef = useRef();
+    const lightRef = useRef();
     const colorMapFront = useLoader(THREE.TextureLoader, imageUrl[0]);
     const colorMapBack = useLoader(THREE.TextureLoader, imageUrl[1]);
 
@@ -13,33 +15,11 @@ const Viewport = ({ imageUrl }) => {
 
     useEffect(() => {
         meshRef.current.geometry.center();
-        meshRef.current.rotation.y += 1.2;
+        // meshRef.current.rotation.y += 1.2;
     }, []);
 
     const animHandler = (state, delta) => {
-        const section = document.getElementById('cc-box');
-        // console.log(meshRef.current.rotation.y, prevY)
-
-        // using CSS selectors hacks
-        if (section.matches(":hover") && section.matches(":active")) {
-            if (meshRef.current.quaternion.y <= 0.70) {
-                dummy.lookAt(state.pointer.x, state.pointer.y, 1);
-                setPrevY(0);
-            }
-            else {
-                dummy.lookAt(-state.pointer.x, -state.pointer.y, -1);
-                setPrevY(2.4);
-            }
-            easing.dampQ(meshRef.current.quaternion, dummy.quaternion, 0.15, delta);
-        }
-        else {
-            meshRef.current.rotation.y += prevY + delta;
-            meshRef.current.rotation.y %= 3.14 * 2;
-            if (meshRef.current.rotation.x !== 0) meshRef.current.rotation.x = 0;
-            if (meshRef.current.rotation.z !== 0) meshRef.current.rotation.z = 0;
-
-            setPrevY(0);
-        }
+        // meshRef.current.rotation.y += prevY + delta;
     };
 
     useFrame((state, delta) => animHandler(state, delta));
@@ -47,10 +27,11 @@ const Viewport = ({ imageUrl }) => {
     return (
         <>
             <ambientLight intensity={0.1} />
-            <directionalLight color="white" position={[0, 5, 5]} intensity={2.5} />
+            <directionalLight color="white" position={[0, 5, 5]} intensity={3.5} ref={lightRef} />
             <mesh ref={meshRef} >
-                {/* <cylinderGeometry args={[2.5, 2.5, 0.1, 64]} /> */}
                 <boxGeometry args={[4, 4, .05]} />
+
+                {/* <cylinderGeometry args={[2.5, 2.5, 0.1, 64]} /> */}
                 {/* <meshBasicMaterial map={colorMap} /> */}
                 {/* <meshStandardMaterial map={colorMapBack} /> */}
 
@@ -64,6 +45,19 @@ const Viewport = ({ imageUrl }) => {
                 <meshStandardMaterial attach="material-6" map={colorMapFront} />
 
             </mesh>
+            <OrbitControls
+                autoRotate={true}
+                onChange={(e) => {
+                    if (!e) return;
+                    const camera = e.target.object;
+
+                    if (lightRef.current) {
+                        lightRef.current.position.set(0, 0, 0);
+                        lightRef.current.position.add(camera.position);
+                    }
+                }}
+                enablePan={false}
+            />
         </>
     );
 };
