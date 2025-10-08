@@ -1,3 +1,6 @@
+import '../styles/search.css';
+
+
 const Results = ({ songInfo, chooseCover, selected }) => {
     return (
         <div className={selected ? "result selected" : "result"} onClick={() => chooseCover(songInfo.id)}>

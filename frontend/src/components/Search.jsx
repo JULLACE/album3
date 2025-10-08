@@ -5,7 +5,8 @@ const Search = ({ value, handleChange, submitHandler }) => {
         value={value}
         onChange={handleChange}
         placeholder="Search for an Album..."
-        enterKeyHint="search" />
+        enterKeyHint="search"
+        required />
     </form>
   );
 };
