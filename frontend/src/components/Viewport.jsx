@@ -36,13 +36,12 @@ const Viewport = ({ imageUrl }) => {
                 {/* <meshStandardMaterial map={colorMapBack} /> */}
 
 
-                <meshStandardMaterial attach="material-0" map={colorMapFront} />
-                <meshStandardMaterial attach="material-1" map={colorMapFront} />
-                <meshStandardMaterial attach="material-2" map={colorMapFront} />
-                <meshStandardMaterial attach="material-3" map={colorMapFront} />
-                <meshStandardMaterial attach="material-4" map={colorMapFront} />
-                <meshStandardMaterial attach="material-5" map={colorMapBack} />
-                <meshStandardMaterial attach="material-6" map={colorMapFront} />
+                <meshStandardMaterial attach="material-0" map={colorMapFront} side={THREE.DoubleSide} />{/* Side (Left)*/}
+                <meshStandardMaterial attach="material-1" map={colorMapFront} side={THREE.DoubleSide} />{/* Side (Right)*/}
+                <meshStandardMaterial attach="material-2" map={colorMapFront} side={THREE.DoubleSide} />{/* Top */}
+                <meshStandardMaterial attach="material-3" map={colorMapFront} side={THREE.DoubleSide} />{/* Bottom */}
+                <meshStandardMaterial attach="material-4" map={colorMapFront} side={THREE.DoubleSide} />{/* Front */}
+                <meshStandardMaterial attach="material-5" map={colorMapBack} side={THREE.DoubleSide} /> {/* Back */}
 
             </mesh>
             <OrbitControls
