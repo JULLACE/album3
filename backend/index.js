@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv').config({ path: './.env.local' });
 const axios = require('axios');
-const { astroHandler } = require('./dist/server/entry.mjs');
+const { handler } = require('./dist/server/entry.mjs');
 
 const app = express();
 app.use(express.json());
@@ -21,7 +21,7 @@ const baseHeaders = {
 const pagination = '?page=0&per_page=9';
 
 app.use(express.static('./dist/client/'));
-app.use(astroHandler);
+app.use(handler);
 
 app.get('/', (request, response) => {
     response.status(404).end();
