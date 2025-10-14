@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 
 import Search from './Search';
@@ -8,40 +8,58 @@ import Viewport from './Viewport';
 import API from '../services/api';
 import '../styles/search.css';
 
-const App = () => {
-  const [searchValue, setSearchValue] = useState('');
+const App = ({ searchParam, selectedParam }) => {
+  const [searchValue, setSearchValue] = searchParam ? useState(searchParam) : useState('');
   const [data, setData] = useState([]);
   const [texture, setTexture] = useState(['/favicon.png', '/favicon.png']);
-  const [selectedID, setSelectedID] = useState(-1);
+  const [selectedIndex, setselectedIndex] = selectedParam ? useState(selectedParam) : useState(-1);
   const [searched, setSearched] = useState(false);
+
+  // Wait for renders, then set search text + selected image
+  useEffect(() => {
+    if (searchParam)
+      searchHandler(null);
+  }, []);
+
+  useEffect(() => {
+    if (selectedParam)
+      imageTexture(selectedParam);
+  }, [data]);
 
   const handleChange = (event) => {
     setSearchValue(event.target.value);
   };
 
   const searchHandler = (event) => {
-    event.preventDefault();
+    if (event)
+      event.preventDefault();
     console.log('Searching for... ', searchValue);
 
-    setSelectedID(-1);
+    setselectedIndex(-1);
 
     API.querySearch(searchValue)
       .then(response => {
         setData(response.data.results);
         console.log(response.data.results);
         setSearched(true);
+        updateURL(`?search=${searchValue}`);
       });
   };
 
   const imageTexture = (choice = 0) => {
     console.log('Received choice...', choice);
-    setSelectedID(choice);
+    setselectedIndex(choice);
 
-    if (data.length > 0 && choice) {
+    if (data.length > 0 && data[choice] && data[choice].id) {
       console.log('Grabbing images...');
-      let imageArray = [`${import.meta.env.PUBLIC_LINK_HANDLER}/cover/${choice}/0`, `${import.meta.env.PUBLIC_LINK_HANDLER}/cover/${choice}/1`];
+      let imageArray = [`${import.meta.env.PUBLIC_LINK_HANDLER}/cover/${data[choice].id}/0`, `${import.meta.env.PUBLIC_LINK_HANDLER}/cover/${data[choice].id}/1`];
       setTexture(imageArray);
+      updateURL(`?search=${searchValue}&selected=${choice}`);
     }
+  };
+
+  const updateURL = (append) => {
+    window.history.pushState("searched", '', append);
   };
 
   const emptyResults = () => {
@@ -75,12 +93,13 @@ const App = () => {
         {data.length === 0
           ? (searched ? emptyResults() : '')
           : <div className="result-list">
-            {data.map(song =>
+            {data.map((song, index) =>
               <Results
                 key={song.id}
                 songInfo={song}
                 chooseCover={imageTexture}
-                selected={song.id == selectedID}
+                selected={index === selectedIndex}
+                index={index}
               />
             )}
           </div>
@@ -90,4 +109,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App;;
