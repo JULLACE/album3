@@ -4,3 +4,7 @@
 @theme {
     --font-sans: "Roboto", sans-serif;
 }
+
+html {
+    background-color: #141414;
+}
