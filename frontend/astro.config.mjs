@@ -11,10 +11,13 @@ export default defineConfig({
   integrations: [react()],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    ssr: {
+      noExternal: true
+    }
   },
 
   adapter: node({
-    mode: 'standalone'
+    mode: 'middleware'
   })
 });
