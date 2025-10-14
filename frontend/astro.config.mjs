@@ -6,18 +6,29 @@ import tailwindcss from '@tailwindcss/vite';
 
 import node from '@astrojs/node';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+const extra = isProduction
+  ? {
+    vite: {
+      plugins: [tailwindcss()],
+      ssr: {
+        noExternal: true,
+      },
+    },
+  }
+  : {
+    vite: {
+      plugins: [tailwindcss()],
+    }
+  };
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
 
-  vite: {
-    plugins: [tailwindcss()],
-    ssr: {
-      noExternal: true
-    }
-  },
-
   adapter: node({
-    mode: 'middleware'
-  })
+    mode: 'standalone'
+  }),
+  ...extra
 });

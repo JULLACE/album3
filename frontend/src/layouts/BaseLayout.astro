@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 const { title } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="bg-gradient-to-br from-neutral-800 to-neutral-950">
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.png" />
@@ -14,11 +14,8 @@ const { title } = Astro.props;
         <title>{title} - album3</title>
     </head>
 
-    <body
-        class="text-white min-h-svh
-        bg-gradient-to-br from-neutral-800 to-neutral-950
-        max-w-7xl mx-auto"
-    >
+    <body class="text-white min-h-svh
+        max-w-7xl mx-auto">
         <Navigation />
         <slot />
         <Footer />
