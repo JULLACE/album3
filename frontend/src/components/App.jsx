@@ -65,7 +65,7 @@ const App = ({ searchParam, selectedParam }) => {
   const emptyResults = () => {
     return (
       <div className="empty-list">
-        <h3>could not find album... :(</h3>
+        <p>could not find album... :(</p>
       </div>
     );
   };

@@ -5,26 +5,26 @@ const active = "underline underline-offset-8 text-purple-100";
 
 <div
     class="mx-auto flex items-center max-w-7xl container
-    justify-between p-4"
+     justify-center p-4 md:justify-between gap-4 md:gap-0"
 >
     <a href="/">
         <span class="font-normal font-mono flex items-center gap-2">
-            <img src="/favicon.png" class="max-w-10" />
+            <img src="/favicon.png" class="max-w-6 md:max-w-10" />
             album3
         </span>
     </a>
 
-    <ul class="flex gap-10 justify-center items-center">
+    <ul class="flex gap-4 justify-center items-center md:gap-10">
         <li>
             <a href="/" class={pathname === "/" ? active : ""}>Search</a>
         </li>
         <li>
-            <a
-                href="/leaderboard/"
-                class={pathname === "/leaderboard/" ? active : ""}
-                >Leaderboard</a
-            >
+            <a href="/leaderboard/" class={pathname === "/leaderboard/" ? active : ""}>Leaderboard</a>
+        </li>
+        <li>
+            <!-- Empty Item to keep center -->
         </li>
     </ul>
-    <div>Login <span class="text-xs">(wip)</span></div>
+
+    <a href="/login/" class={pathname === "/login/" ? active : ""}>Login</a>
 </div>

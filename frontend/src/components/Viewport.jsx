@@ -1,8 +1,8 @@
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef, useEffect, useState } from 'react';
-import { easing } from 'maath';
 import * as THREE from 'three';
 import { OrbitControls } from '@react-three/drei';
+import { GUI } from 'lil-gui';
 
 const Viewport = ({ imageUrl }) => {
     const meshRef = useRef();
@@ -14,27 +14,21 @@ const Viewport = ({ imageUrl }) => {
     const [prevY, setPrevY] = useState(0.0);
 
     useEffect(() => {
-        meshRef.current.geometry.center();
-        // meshRef.current.rotation.y += 1.2;
+        const gui = new GUI({ container: document.getElementById('cc-box') });
+        gui.add(meshRef.current.rotation, 'x', 0, Math.PI * 2);
+
+        return () => {
+            gui.destroy();
+        };
     }, []);
 
-    const animHandler = (state, delta) => {
-        // meshRef.current.rotation.y += prevY + delta;
-    };
-
-    useFrame((state, delta) => animHandler(state, delta));
 
     return (
         <>
             <ambientLight intensity={0.1} />
-            <directionalLight color="white" position={[0, 5, 5]} intensity={3.5} ref={lightRef} />
+            <directionalLight color="white" position={[0, 5, 5]} intensity={2.5} ref={lightRef} />
             <mesh ref={meshRef} >
                 <boxGeometry args={[4, 4, .05]} />
-
-                {/* <cylinderGeometry args={[2.5, 2.5, 0.1, 64]} /> */}
-                {/* <meshBasicMaterial map={colorMap} /> */}
-                {/* <meshStandardMaterial map={colorMapBack} /> */}
-
 
                 <meshStandardMaterial attach="material-0" map={colorMapFront} side={THREE.DoubleSide} />{/* Side (Left)*/}
                 <meshStandardMaterial attach="material-1" map={colorMapFront} side={THREE.DoubleSide} />{/* Side (Right)*/}
@@ -50,6 +44,7 @@ const Viewport = ({ imageUrl }) => {
                     if (!e) return;
                     const camera = e.target.object;
 
+                    // Constantly move light with camera 
                     if (lightRef.current) {
                         lightRef.current.position.set(0, 0, 0);
                         lightRef.current.position.add(camera.position);
