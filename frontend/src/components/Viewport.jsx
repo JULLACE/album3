@@ -7,6 +7,8 @@ import { GUI } from 'lil-gui';
 const Viewport = ({ imageUrl }) => {
     const meshRef = useRef();
     const lightRef = useRef();
+    const cameraRef = useRef();
+
     const colorMapFront = useLoader(THREE.TextureLoader, imageUrl[0]);
     const colorMapBack = useLoader(THREE.TextureLoader, imageUrl[1]);
 
@@ -14,8 +16,31 @@ const Viewport = ({ imageUrl }) => {
     const [prevY, setPrevY] = useState(0.0);
 
     useEffect(() => {
-        const gui = new GUI({ container: document.getElementById('cc-box') });
-        gui.add(meshRef.current.rotation, 'x', 0, Math.PI * 2);
+        const options = {
+            'Auto Rotate': true,
+            'Enable Pan': false,
+            'Reset Position': () => { cameraRef.current.reset(); },
+            'Fullscreen': () => {
+                console.log('i am not fullscreen');
+                document.getElementById('cc-box').requestFullscreen().catch((err) => {
+                    alert('Open in a seperate tab to allow fullscreen access');
+                });
+            },
+        };
+
+        const gui = new GUI({ title: 'Options', container: document.getElementById('gui-box'), width: 150 });
+        gui.open(false);
+
+        // In order to get custom names for each option, run on change
+        gui.add(options, 'Auto Rotate').onChange(value => {
+            cameraRef.current.autoRotate = value;
+        });
+        gui.add(options, 'Enable Pan').onChange(value => {
+            cameraRef.current.enablePan = value;
+        });
+
+        gui.add(options, 'Reset Position');
+        gui.add(options, 'Fullscreen');
 
         return () => {
             gui.destroy();
@@ -40,6 +65,7 @@ const Viewport = ({ imageUrl }) => {
             </mesh>
             <OrbitControls
                 autoRotate={true}
+                ref={cameraRef}
                 onChange={(e) => {
                     if (!e) return;
                     const camera = e.target.object;
