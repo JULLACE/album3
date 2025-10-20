@@ -5,8 +5,8 @@ import Search from './Search';
 import Results from './Results';
 import Viewport from './Viewport';
 
-import API from '../services/api';
-import '../styles/search.css';
+import API from '../../services/api';
+import '../../styles/search.css';
 
 const App = ({ searchParam, selectedParam }) => {
   const [searchValue, setSearchValue] = searchParam ? useState(searchParam) : useState('');
@@ -15,7 +15,7 @@ const App = ({ searchParam, selectedParam }) => {
   const [selectedIndex, setselectedIndex] = selectedParam ? useState(selectedParam) : useState(-1);
   const [searched, setSearched] = useState(false);
 
-  // Wait for renders, then set search text + selected image
+  // Wait for renders, then set search text + selected image from URL
   useEffect(() => {
     if (searchParam)
       searchHandler(null);
@@ -112,6 +112,12 @@ const App = ({ searchParam, selectedParam }) => {
                 index={index}
               />
             )}
+
+            {data.length === 9 ? <>
+              <button className='page-button'>{'<<'}</button>
+              <p className='page-number'>Page 1</p>
+              <button className='page-button'>{'>>'}</button>
+            </> : ''}
           </div>
         }
       </div>
@@ -119,4 +125,4 @@ const App = ({ searchParam, selectedParam }) => {
   );
 };
 
-export default App;;
+export default App;

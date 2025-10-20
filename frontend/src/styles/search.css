@@ -93,6 +93,26 @@
   overflow: auto;
 }
 
+.page-button {
+  font-family: monospace;
+  font-weight: bold;
+  border: 1px solid rgb(49, 49, 49);
+  border-radius: 5px;
+  transition: 0.25s;
+}
+
+.page-button:hover {
+  border: 1px solid #313131;
+  background-color: #313131;
+  transition: 0.25s;
+}
+
+.page-number {
+  font-family: monospace;
+  text-align: center;
+  margin: auto;
+}
+
 .canvas-container {
   position: relative;
   max-width: 500px;

@@ -1,12 +1,12 @@
-import '../styles/search.css';
+import '../../styles/search.css';
 
 
 const Results = ({ songInfo, chooseCover, selected, index }) => {
     return (
-        <div className={selected ? "result selected" : "result"} onClick={() => chooseCover(index)}>
+        <button className={selected ? "result selected" : "result"} onClick={() => chooseCover(index)}>
             <img src={songInfo.cover_image} />
             <p>{songInfo.title}</p>
-        </div>
+        </button>
     );
 };
 

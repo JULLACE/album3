@@ -27,9 +27,10 @@ app.get('/', (request, response) => {
     response.status(404).end();
 });
 
-app.get('/search/:query', async (request, response) => {
+app.get('/search/:query/:page?', async (request, response) => {
     let query = request.params.query;
-    let data = await axios.get(`${baseUrl}/database/search?q=${query}&type=release&${pagination}`, baseHeaders);
+    let page = request.params.page ? request.params.page : 0;
+    let data = await axios.get(`${baseUrl}/database/search?q=${query}&type=release&page=${page}&per_page=9`, baseHeaders);
     response.json(data.data);
 });
 
