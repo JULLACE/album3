@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const baseUrl = `${import.meta.env.PUBLIC_LINK_HANDLER}`;
 
-const querySearch = (search) => {
+const querySearch = (search, page = 1) => {
     let query = encodeURIComponent(search);
-    return axios.get(`${baseUrl}/search/${query}`);
+    return axios.get(`${baseUrl}/search/${query}/${page}`);
 };
 
 const grabAlbum = (songID) => {

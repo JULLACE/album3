@@ -11,6 +11,8 @@ import '../../styles/search.css';
 const App = ({ searchParam, selectedParam }) => {
   const [searchValue, setSearchValue] = searchParam ? useState(searchParam) : useState('');
   const [data, setData] = useState([]);
+  const [pageData, setPagedata] = useState([]);
+  const [page, setPage] = useState(1);
   const [texture, setTexture] = useState(['/favicon.png', '/favicon.png']);
   const [selectedIndex, setselectedIndex] = selectedParam ? useState(selectedParam) : useState(-1);
   const [searched, setSearched] = useState(false);
@@ -30,19 +32,23 @@ const App = ({ searchParam, selectedParam }) => {
     setSearchValue(event.target.value);
   };
 
-  const searchHandler = (event) => {
+  const searchHandler = (event, page) => {
     if (event)
       event.preventDefault();
     console.log('Searching for... ', searchValue);
 
     setselectedIndex(-1);
 
-    API.querySearch(searchValue)
+    API.querySearch(searchValue, page)
       .then(response => {
         setData(response.data.results);
-        console.log(response.data.results);
+        setPagedata(response.data.pagination);
+        setPage(response.data.pagination.page);
         setSearched(true);
         updateURL(`?search=${searchValue}`);
+
+        console.log(response.data.results);
+        console.log(response.data.pagination);
       });
   };
 
@@ -52,7 +58,9 @@ const App = ({ searchParam, selectedParam }) => {
 
     if (data.length > 0 && data[choice] && data[choice].id) {
       console.log('Grabbing images...');
+
       let imageArray = [`${import.meta.env.PUBLIC_LINK_HANDLER}/cover/${data[choice].id}/0`, `${import.meta.env.PUBLIC_LINK_HANDLER}/cover/${data[choice].id}/1`];
+
       setTexture(imageArray);
       updateURL(`?search=${searchValue}&selected=${choice}`);
     }
@@ -113,15 +121,17 @@ const App = ({ searchParam, selectedParam }) => {
               />
             )}
 
-            {data.length === 9 ? <>
-              <button className='page-button'>{'<<'}</button>
-              <p className='page-number'>Page 1</p>
-              <button className='page-button'>{'>>'}</button>
-            </> : ''}
+            {pageData ?
+              <>
+                <button disabled={page == 1} onClick={() => searchHandler(null, page - 1)} className='page-button'>{'<<'}</button>
+                <p className='page-number'>Page {page}</p>
+                <button onClick={() => searchHandler(null, page + 1)} className='page-button'>{'>>'}</button>
+              </>
+              : ''}
           </div>
         }
       </div>
-    </div>
+    </div >
   );
 };
 
