@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv').config({ path: './.env.local' });
 const axios = require('axios');
-const { handler } = require('./dist/server/entry.mjs');
+
+var env = process.env.NODE_ENV || 'production';
 
 const app = express();
 app.use(express.json());
@@ -20,8 +21,12 @@ const baseHeaders = {
 
 const pagination = '?page=0&per_page=9';
 
-app.use(express.static('./dist/client/'));
-app.use(handler);
+// Don't render a static page if we're not in development
+if (env == 'production') {
+    const { handler } = require('./dist/server/entry.mjs');
+    app.use(express.static('./dist/client/'));
+    app.use(handler);
+}
 
 app.get('/', (request, response) => {
     response.status(404).end();
