@@ -22,7 +22,7 @@
 }
 
 .search-area input {
-  margin-top: 15%;
+  margin-top: 5%;
   background-color: rgb(20, 20, 20);
   border: grey thin solid;
   padding: 5px;
@@ -42,7 +42,7 @@
   display: grid;
   grid-template-columns: repeat(3, 150px);
   grid-template-rows: repeat(3, 150px);
-  border: 5px solid rgb(214, 214, 214);
+  border: 2px solid rgb(214, 214, 214);
   border-radius: 5px;
   padding: 5px;
 }
@@ -50,7 +50,7 @@
 .empty-list {
   display: flex;
   width: 410px;
-  border: 5px solid rgb(214, 214, 214);
+  border: 2px solid rgb(214, 214, 214);
   border-radius: 5px;
   padding: 5px;
   align-items: center;
@@ -64,7 +64,7 @@
   align-items: center;
   justify-content: space-evenly;
 
-  border: 5px solid rgb(22, 22, 22);
+  border: 2px solid rgb(22, 22, 22);
   border-radius: 5px;
 
   transition: 0.25s;
@@ -73,11 +73,11 @@
 
 .selected {
   background-color: #585858;
-  border: 5px solid #585858;
+  border: 2px solid #585858;
 }
 
 .result:hover {
-  border: 5px solid #313131;
+  border: 2px solid #313131;
   background-color: #313131;
   transition: 0.25s;
 }
@@ -117,7 +117,7 @@
   position: relative;
   max-width: 500px;
   height: 500px;
-  border: 5px solid rgb(214, 214, 214);
+  border: 2px solid rgb(214, 214, 214);
   background-color: #1f1f1f;
   border-radius: 5px;
   flex: 1;
@@ -126,11 +126,18 @@
 @media screen and (max-width: 480px) {
   .canvas-container {
     width: 50%;
-    height: 300px;
+    height: 350px;
   }
 
   .result-list {
-    grid-template-columns: repeat(3, 28vw);
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .result {
+    flex: 0 0 auto;
+    max-width: 50%;
   }
 }
 

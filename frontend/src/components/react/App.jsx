@@ -70,14 +70,6 @@ const App = ({ searchParam, selectedParam }) => {
     );
   };
 
-  const onDoubleClick = (e) => {
-    const box = document.getElementById('cc-box');
-
-    box.requestFullscreen().catch((err) => {
-      alert('Open in a seperate tab to allow fullscreen access');
-    });
-  };
-
   return (
     <div className="layout">
       <div className="search-area">
@@ -94,7 +86,7 @@ const App = ({ searchParam, selectedParam }) => {
       </div>
 
       <div className="view-area">
-        <div className="canvas-container" id="cc-box" onDoubleClick={onDoubleClick}>
+        <div className="canvas-container" id="cc-box" >
           <div id="gui-box"></div>
           <Canvas>
             <Viewport imageUrl={texture} />
@@ -112,12 +104,6 @@ const App = ({ searchParam, selectedParam }) => {
                 index={index}
               />
             )}
-
-            {data.length === 9 ? <>
-              <button className='page-button'>{'<<'}</button>
-              <p className='page-number'>Page 1</p>
-              <button className='page-button'>{'>>'}</button>
-            </> : ''}
           </div>
         }
       </div>
