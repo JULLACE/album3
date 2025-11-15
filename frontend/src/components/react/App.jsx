@@ -104,6 +104,12 @@ const App = ({ searchParam, selectedParam }) => {
                 index={index}
               />
             )}
+
+            {data.length === 9 ? <>
+              <button className='page-button' style={{ color: 'lightgreen' }}>nice</button>
+              <p className='page-number'>score</p>
+              <button className='page-button' style={{ color: 'orange' }}>meh</button>
+            </> : ''}
           </div>
         }
       </div>

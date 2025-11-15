@@ -3,6 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv').config({ path: './.env.local' });
 const axios = require('axios');
 
+const lbRouter = require('./controllers/lb');
+
 var env = process.env.NODE_ENV || 'production';
 
 const app = express();
@@ -21,7 +23,7 @@ const baseHeaders = {
 
 const pagination = '?page=0&per_page=9';
 
-// Don't render a static page if we're not in development
+// Only render a static page if we're in production
 if (env == 'production') {
     const { handler } = require('./dist/server/entry.mjs');
     app.use(express.static('./dist/client/'));
@@ -54,6 +56,8 @@ app.get('/cover/:id/:option', async (request, response) => {
     response.setHeader('Content-Type', 'image/jpeg');
     response.send(imageData.data);
 });
+
+app.use('/api/lb', lbRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
