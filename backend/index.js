@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config({ path: './.env.local' });
 const axios = require('axios');
 
 const lbRouter = require('./controllers/lb');
+const userRouter = require('./controllers/user');
 
 var env = process.env.NODE_ENV || 'production';
 
@@ -20,8 +21,6 @@ const baseHeaders = {
             `Discogs key=${process.env.VITE_CONSUMER_KEY}, secret=${process.env.VITE_CONSUMER_SECRET}`
     }
 };
-
-const pagination = '?page=0&per_page=9';
 
 // Only render a static page if we're in production
 if (env == 'production') {
@@ -58,9 +57,9 @@ app.get('/cover/:id/:option', async (request, response) => {
 });
 
 app.use('/api/lb', lbRouter);
+app.use('/api/users', userRouter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
-})
-
+});
