@@ -3,3 +3,4 @@ TODO.md
 .env.local
 .env
 dist/
+backend/data/*
